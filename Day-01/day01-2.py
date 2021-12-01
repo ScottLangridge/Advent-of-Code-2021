@@ -1,10 +1,12 @@
 def main(raw_input):
-    # Parse input
+    depths = [int(x) for x in raw_input.splitlines()]
+    increases = 0
+    for i in range(3, len(depths)):
+        # Depths i - 1 and i - 2 are irrelevant since they're in both windows.
+        if depths[i] > depths[i - 3]:
+            increases += 1
 
-    # Solve problem
-
-    # Return solution
-    return None
+    return increases
 
 
 def get_input(filename):

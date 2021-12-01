@@ -1,10 +1,11 @@
 def main(raw_input):
-    # Parse input
+    depths = [int(x) for x in raw_input.splitlines()]
+    increases = 0
+    for i in range(1, len(depths)):
+        if depths[i] > depths[i - 1]:
+            increases += 1
 
-    # Solve problem
-
-    # Return solution
-    return None
+    return increases
 
 
 def get_input(filename):
