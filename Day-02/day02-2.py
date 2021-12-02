@@ -1,10 +1,21 @@
 def main(raw_input):
-    # Parse input
+    steps = [(line.split()[0], int(line.split()[1])) for line in raw_input.splitlines()]
+    aim_delta = {
+        'up': -1,
+        'down': 1
+    }
 
-    # Solve problem
+    aim = 0
+    x, y = 0, 0
+    for step in steps:
+        action, dist = step
+        if action == 'forward':
+            x += dist
+            y += aim * dist
+        else:
+            aim += aim_delta[action] * dist
 
-    # Return solution
-    return None
+    return x * y
 
 
 def get_input(filename):
