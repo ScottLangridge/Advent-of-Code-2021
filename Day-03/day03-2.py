@@ -1,8 +1,9 @@
 import numpy as np
+from scipy import stats
 
 
 def main(raw_input):
-    report = np.array([list(line) for line in raw_input.splitlines()])
+    report = np.array([list(map(lambda x: x == '1', line)) for line in raw_input.splitlines()])
 
     o2_report = report.copy()
     co2_report = report.copy()
@@ -10,40 +11,35 @@ def main(raw_input):
     while len(o2_report) > 1:
         # For each column index
         for i in range(len(report[0, :])):
-            most_common_bit = most_common(o2_report[:, i])
-            o2_report = np.array(list(filter(lambda line: line[i] == most_common_bit, o2_report)))
+            match_bit = mode(o2_report[:, i])
+            o2_report = filter_array_to_matching(o2_report, i, match_bit)
             if len(o2_report) == 1:
                 break
 
     while len(co2_report) > 1:
         # For each column index
         for i in range(len(report[0, :])):
-            least_common_bit = least_common(co2_report[:, i])
-            co2_report = np.array(list(filter(lambda line: line[i] == least_common_bit, co2_report)))
+            match_bit = not mode(co2_report[:, i])
+            co2_report = filter_array_to_matching(co2_report, i, match_bit)
             if len(co2_report) == 1:
                 break
 
-    return int(''.join(o2_report[0]), 2) * int(''.join(co2_report[0]), 2)
+    return bin_arr_to_int(o2_report[0]) * bin_arr_to_int(co2_report[0])
 
 
-def most_common(lst):
-    lst = list(lst)
-    ones = lst.count('1')
-    zeros = lst.count('0')
-    if zeros > ones:
-        return '0'
-    else:
-        return '1'
+def mode(col):
+    return sum(col) >= len(col) / 2
 
 
-def least_common(lst):
-    lst = list(lst)
-    ones = lst.count('1')
-    zeros = lst.count('0')
-    if ones < zeros:
-        return '1'
-    else:
-        return '0'
+def filter_array_to_matching(array, column, bit_to_match):
+    filter_arr = array[:, column] == bit_to_match
+    return array[filter_arr]
+
+
+def bin_arr_to_int(bin_arr):
+    mapping_dict = {True: '1', False: '0'}
+    str_arr = list(map(lambda x: mapping_dict[x], bin_arr))
+    return int(''.join(str_arr), 2)
 
 
 def get_input(filename):

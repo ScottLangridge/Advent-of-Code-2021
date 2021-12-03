@@ -1,4 +1,5 @@
 import numpy as np
+from scipy import stats
 
 
 def main(raw_input):
@@ -7,8 +8,8 @@ def main(raw_input):
 
     g, e = '', ''
     for col in transposed_report:
-        col = list(col)
-        if col.count('1') > col.count('0'):
+        mode = stats.mode(col).mode.item(0)
+        if mode == '1':
             g += '1'
             e += '0'
         else:
