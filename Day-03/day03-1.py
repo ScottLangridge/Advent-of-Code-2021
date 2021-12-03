@@ -1,10 +1,21 @@
+import numpy as np
+
+
 def main(raw_input):
-    # Parse input
+    report = np.array([list(line) for line in raw_input.splitlines()])
+    transposed_report = report.transpose()
 
-    # Solve problem
+    g, e = '', ''
+    for col in transposed_report:
+        col = list(col)
+        if col.count('1') > col.count('0'):
+            g += '1'
+            e += '0'
+        else:
+            e += '1'
+            g += '0'
 
-    # Return solution
-    return None
+    return int(g, 2) * int(e, 2)
 
 
 def get_input(filename):
