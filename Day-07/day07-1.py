@@ -1,10 +1,15 @@
 def main(raw_input):
-    # Parse input
+    crab = [int(x) for x in raw_input.split(',')]
+    leftmost = min(crab)
+    rightmost = max(crab)
 
-    # Solve problem
+    least_fuel = sum(map(lambda i: abs(i - 0), crab))
+    for x in range(leftmost, rightmost + 1):
+        fuel = sum(map(lambda i: abs(i - x), crab))
+        if fuel < least_fuel:
+            least_fuel = fuel
 
-    # Return solution
-    return None
+    return least_fuel
 
 
 def get_input(filename):
