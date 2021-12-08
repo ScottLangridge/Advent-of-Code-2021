@@ -1,10 +1,12 @@
 def main(raw_input):
-    # Parse input
+    split_input = [x.split(' | ') for x in raw_input.splitlines()]
+    output_vals = []
+    for x in split_input:
+        output_vals.extend(x[1].split())
 
-    # Solve problem
+    easy_output_vals = list(filter(lambda x: len(x) in [2, 3, 4, 7], output_vals))
 
-    # Return solution
-    return None
+    return len(easy_output_vals)
 
 
 def get_input(filename):
