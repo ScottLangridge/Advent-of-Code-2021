@@ -4,7 +4,7 @@ from itertools import permutations, chain
 
 def main(raw_input):
     split_input = [x.split(' | ') for x in raw_input.splitlines()]
-    input_signal_sets = [sorted(x[0].split(), key=len) for x in split_input]
+    input_signal_sets = [x[0].split() for x in split_input]
     output_signal_sets = [x[1].split() for x in split_input]
 
     output_vals_sum = 0
