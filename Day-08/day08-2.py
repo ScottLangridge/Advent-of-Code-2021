@@ -74,7 +74,6 @@ def get_segment_mapping(signal_set):
 def get_output_digits(signal_mapping, output_signals):
     true_output_signals = []
     for signal in output_signals:
-        true_signal = ''.join([signal_mapping[char] for char in signal])
         true_output_signals.append(''.join(sorted([signal_mapping[char] for char in signal])))
 
     signal_to_digit = {
