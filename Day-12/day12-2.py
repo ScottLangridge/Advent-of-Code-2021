@@ -19,9 +19,7 @@ def main(raw_input):
     small_caves.remove(caves['start'])
     small_caves.remove(caves['end'])
 
-    start = caves['start']
-
-    routes = []
+    start, routes = caves['start'], []
     for small_cave in small_caves:
         routes.extend(get_routes(start, [start], small_cave))
 
@@ -59,11 +57,10 @@ def get_input(filename):
 def visitable(cave, visited, visitable_twice):
     if cave.is_large:
         return True
-
-    if cave == visitable_twice and visited.count(cave) < 2:
+    elif cave == visitable_twice and visited.count(cave) < 2:
         return True
-
-    return cave not in visited
+    else:
+        return cave not in visited
 
 
 if __name__ == '__main__':
